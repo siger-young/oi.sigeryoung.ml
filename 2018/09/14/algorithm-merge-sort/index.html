@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Algorithm - Basic - Merge Sort | Siger Young</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link href="//cdn.bootcss.com/KaTeX/0.9.0/katex.min.css" rel="stylesheet" type="text/css">
+  <meta name="description" content="归并排序是一种分治排序算法，还可用于求逆序对.">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Algorithm - Basic - Merge Sort">
+<meta property="og:url" content="http://oi.yscale.cf/2018/09/14/algorithm-merge-sort/index.html">
+<meta property="og:site_name" content="Siger Young">
+<meta property="og:description" content="归并排序是一种分治排序算法，还可用于求逆序对.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oi.yscale.cf/2018/09/14/algorithm-merge-sort/merge.png">
+<meta property="og:updated_time" content="2018-09-22T03:53:52.847Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Algorithm - Basic - Merge Sort">
+<meta name="twitter:description" content="归并排序是一种分治排序算法，还可用于求逆序对.">
+<meta name="twitter:image" content="http://oi.yscale.cf/2018/09/14/algorithm-merge-sort/merge.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Siger Young" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Siger Young</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://oi.yscale.cf"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-algorithm-merge-sort" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/14/algorithm-merge-sort/" class="article-date">
+  <time datetime="2018-09-14T14:20:12.000Z" itemprop="datePublished">2018-09-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>►<a class="article-category-link" href="/categories/Algorithm/Basic/">Basic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Algorithm - Basic - Merge Sort
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>归并排序是一种<strong>分治</strong>排序算法，还可用于求逆序对.</p>
+<a id="more"></a>
+<h2 id="思想"><a class="markdownIt-Anchor" href="#思想"></a> 思想</h2>
+<p>已知一个数组<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">a</span></span></span></span>，对于区间<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l, r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>，我们采取操作 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">M</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">G</mi><mi mathvariant="normal">E</mi></mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{MERGE}(a, l, r)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">M</span><span class="mord mathrm">E</span><span class="mord mathrm">R</span><span class="mord mathrm">G</span><span class="mord mathrm">E</span></span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span></span></p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>←</mo><mo>(</mo><mi>l</mi><mo>+</mo><mi>r</mi><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">m\leftarrow (l + r) / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit">m</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span>.</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">M</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">G</mi><mi mathvariant="normal">E</mi></mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>l</mi><mo separator="true">,</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{MERGE}(a, l, m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">M</span><span class="mord mathrm">E</span><span class="mord mathrm">R</span><span class="mord mathrm">G</span><span class="mord mathrm">E</span></span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>.</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">M</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">R</mi><mi mathvariant="normal">G</mi><mi mathvariant="normal">E</mi></mrow><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>r</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{MERGE}(a, m + 1, r)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">M</span><span class="mord mathrm">E</span><span class="mord mathrm">R</span><span class="mord mathrm">G</span><span class="mord mathrm">E</span></span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit">m</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span></span>.</li>
+<li>合并，拷回原数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">a</span></span></span></span>.</li>
+</ol>
+<p>可视化算法请看 <a href="https://visualgo.net/en/sorting" title="VisuAlgo Sorting" target="_blank" rel="noopener">VisuAlgo Sorting</a>.</p>
+<h2 id="复杂度分析"><a class="markdownIt-Anchor" href="#复杂度分析"></a> 复杂度分析</h2>
+<p>根据思想，我们可有递推式 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><mn>2</mn><mi>T</mi><mo>(</mo><mfrac><mrow><mi>n</mi></mrow><mrow><mn>2</mn></mrow></mfrac><mo>)</mo><mo>+</mo><mrow><mi mathvariant="script">O</mi></mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">T(n) = 2T(\frac{n}{2}) + \mathcal{O}(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.095em;vertical-align:-0.345em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mord">2</span><span class="mord mathit" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3em;"></span><span class="stretchy" style="height:0.2em;"><svg width="400em" height="0.2em" viewbox="0 0 400000 200" preserveaspectratio="xMinYMin slice"><path d="M0 80H400000 v40H0z M0 80H400000 v40H0z"/></svg></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.02778em;">O</span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>.<br>
+根据主定理，其时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="script">O</mi></mrow><mo>(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal{O}(n\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathcal" style="margin-right:0.02778em;">O</span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>.<br>
+由于合并需要外部空间，其空间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="script">O</mi></mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal{O}(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathcal" style="margin-right:0.02778em;">O</span></span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span></span></span></span>.</p>
+<h2 id="实现思路"><a class="markdownIt-Anchor" href="#实现思路"></a> 实现思路</h2>
+<p>采用<strong>递归</strong>的方式，参数为数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">a</span></span></span></span>，区间左端 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span>，区间右端 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span>.<br>
+显然在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mo>⩾</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">l \geqslant r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.83111em;vertical-align:-0.13667em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel amsrm">⩾</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span> 时不需要进行排序，将其作为递归边界.<br>
+记 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">m</span></span></span></span> 为区间中点 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>l</mi><mo>+</mo><mi>r</mi><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(l + r) / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span></span></span></span>，并对左半部分排序，右半部分排序.<br>
+<strong>实现的重点实际上是合并左半部分和右半部分，并拷回原数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">a</span></span></span></span>.</strong></p>
+<p>假定数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">a</span></span></span></span> 的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>m</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l, m]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit">m</span><span class="mclose">]</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>m</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>l</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[m + 1, l]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathit">m</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mclose">]</span></span></span></span> 区间已完成排序，如图所示，它们的合并更像是两个栈出栈的过程.<br>
+分别用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>i</mi></mrow><annotation encoding="application/x-tex">li</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>i</mi></mrow><annotation encoding="application/x-tex">ri</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">i</span></span></span></span> 表示左半部分栈顶元素下标和右半部分栈顶元素下标，初始时 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>i</mi><mo>←</mo><mi>l</mi></mrow><annotation encoding="application/x-tex">li \leftarrow l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span> 且 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>i</mi><mo>←</mo><mi>m</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">ri \leftarrow m + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">i</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit">m</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span></span>.<br>
+接下来分为两种情况出栈</p>
+<ol>
+<li>选择 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>[</mo><mi>l</mi><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">a[li]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit">a</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mclose">]</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>[</mo><mi>r</mi><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">a[ri]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit">a</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">i</span><span class="mclose">]</span></span></span></span> 中较小的出栈至外部空间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mi>u</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">buf</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit">b</span><span class="mord mathit">u</span><span class="mord mathit" style="margin-right:0.10764em;">f</span></span></span></span>，并相应使下标自增</li>
+<li>一个栈已空，则只对另一个栈进行出栈即可</li>
+</ol>
+<p>反复进行上述两个操作之一，直到两个栈为空即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">li &gt; m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit">m</span></span></span></span> 且 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>i</mi><mo>&gt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">ri &gt; r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.69862em;vertical-align:-0.0391em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">i</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mord mathit" style="margin-right:0.02778em;">r</span></span></span></span> （或使用计数器 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi></mrow></mrow><annotation encoding="application/x-tex">\mathrm{cnt}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61508em;"></span><span class="strut bottom" style="height:0.61508em;vertical-align:0em;"></span><span class="base"><span class="mord"><span class="mord mathrm">c</span><span class="mord mathrm">n</span><span class="mord mathrm">t</span></span></span></span></span> 统计已出栈的个数，并将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mo>=</mo><mo>=</mo><mo>(</mo><mi mathvariant="normal">r</mi><mo>−</mo><mi mathvariant="normal">l</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{cnt == (r - l + 1)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">c</span><span class="mord mathrm">n</span><span class="mord mathrm">t</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mrel">=</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mopen">(</span><span class="mord mathrm">r</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord mathrm">l</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span></span> 作为终止条件）时.<br>
+再将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mi>u</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">buf</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit">b</span><span class="mord mathit">u</span><span class="mord mathit" style="margin-right:0.10764em;">f</span></span></span></span> 的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l, r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 区间拷回原数组 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">a</span></span></span></span> 中.<br>
+<img src="/2018/09/14/algorithm-merge-sort/merge.png" alt="合并"></p>
+<h2 id="逆序对"><a class="markdownIt-Anchor" href="#逆序对"></a> 逆序对</h2>
+<p>逆序对的计算发生在合并的过程中，由于两部分已经有序，在左半部分和右半部分分别出栈时，可以保证当前出栈的元素一定是小于另一个栈剩下所有元素的.<br>
+因此当右半部分出栈时，出栈的元素小于剩余的左半部分的所有元素，而此时左半部分剩余元素个数为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>−</mo><mi>l</mi><mi>i</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m - li + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="base"><span class="mord mathit">m</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span></span></p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN (50000+5)</span></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> pairs = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> buf[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergesort</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">int</span> m = (l + r) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> li = l;</span><br><span class="line">	<span class="keyword">int</span> ri = m + <span class="number">1</span>;</span><br><span class="line">	mergesort(a, l, m);</span><br><span class="line">	mergesort(a, m + <span class="number">1</span>, r);</span><br><span class="line">	<span class="keyword">while</span>(cnt != (r - l + <span class="number">1</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// if((ri &gt; r) || (li &lt;= m &amp;&amp; (a[li] &gt;= a[ri])))</span></span><br><span class="line">		<span class="keyword">if</span>((ri &gt; r) || (li &lt;= m &amp;&amp; (a[li] &lt;= a[ri])))</span><br><span class="line">		&#123;</span><br><span class="line">			buf[l + cnt] = a[li];</span><br><span class="line">			li++;</span><br><span class="line">			cnt++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			buf[l + cnt] = a[ri];</span><br><span class="line">			ri++;</span><br><span class="line">			cnt++;</span><br><span class="line">			pairs += m - li + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = l; i &lt;= r; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		a[i] = buf[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://oi.yscale.cf/2018/09/14/algorithm-merge-sort/" data-id="cjme7sglu0004dcsdti4hpknj" data-summary="归并排序是一种分治排序算法，还可用于求逆序对." data-title="Algorithm - Basic - Merge Sort" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/16/algorithm-problem-max-subsequence-sum/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新赋</strong>
+      <div class="article-nav-title">
+        
+          Algorithm - Problem - 最大子段和
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/29/hello-latex/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">陈词</strong>
+      <div class="article-nav-title">Hello LaTeX</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Basic/">Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Dynamic-Programming/">Dynamic Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Problem/">Problem</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 10px;">Algorithm</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/22/algorithm-dp-knapsack/">Algorithm - DP - 背包</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/22/algorithm-dp-dag/">Algorithm - DP - DAG 模型</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/20/algorithm-problem-in-post-to-pre/">Algorithm - Problem - 二叉树之中序后序求先序</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/16/algorithm-problem-max-subsequence-sum/">Algorithm - Problem - 最大子段和</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/14/algorithm-merge-sort/">Algorithm - Basic - Merge Sort</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Siger Young<br>
+      动力源于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+</nav>
+    
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script-->
+<script src="//cdn.bootcss.com/jquery/1.7.2/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Algorithm - Problem - 二叉树之中序后序求先序 | Siger Young</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link href="//cdn.bootcss.com/KaTeX/0.9.0/katex.min.css" rel="stylesheet" type="text/css">
+  <meta name="description" content="给出一棵二叉树的中序与后序遍历，求出它的先序遍历，用不同的大写字母表示二叉树的结点.">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Algorithm - Problem - 二叉树之中序后序求先序">
+<meta property="og:url" content="http://oi.yscale.cf/2018/09/20/algorithm-problem-in-post-to-pre/index.html">
+<meta property="og:site_name" content="Siger Young">
+<meta property="og:description" content="给出一棵二叉树的中序与后序遍历，求出它的先序遍历，用不同的大写字母表示二叉树的结点.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-23T01:58:06.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Algorithm - Problem - 二叉树之中序后序求先序">
+<meta name="twitter:description" content="给出一棵二叉树的中序与后序遍历，求出它的先序遍历，用不同的大写字母表示二叉树的结点.">
+  
+    <link rel="alternate" href="/atom.xml" title="Siger Young" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Siger Young</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://oi.yscale.cf"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-algorithm-problem-in-post-to-pre" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/20/algorithm-problem-in-post-to-pre/" class="article-date">
+  <time datetime="2018-09-20T04:37:12.000Z" itemprop="datePublished">2018-09-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>►<a class="article-category-link" href="/categories/Algorithm/Problem/">Problem</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Algorithm - Problem - 二叉树之中序后序求先序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>给出一棵二叉树的中序与后序遍历，求出它的先序遍历，用不同的大写字母表示二叉树的结点.</p>
+<a id="more"></a>
+<h2 id="分析"><a class="markdownIt-Anchor" href="#分析"></a> 分析</h2>
+<p>记 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07847em;">X</span></span></span></span> 为一个结点，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">L</span></span></span></span> 为其左孩，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.00773em;">R</span></span></span></span> 为其右孩，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">N</mi></mrow><mo>(</mo><mi>X</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{IN}(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">I</span><span class="mord mathrm">N</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span> 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07847em;">X</span></span></span></span> 结点的中序遍历，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">P</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">T</mi></mrow><mo>(</mo><mi>X</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{POST}(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">P</span><span class="mord mathrm">O</span><span class="mord mathrm">S</span><span class="mord mathrm">T</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span> 为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07847em;">X</span></span></span></span> 结点的后序遍历。<br>
+则中序遍历 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">N</mi></mrow><mo>(</mo><mi>X</mi><mo>)</mo><mo>=</mo><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">N</mi></mrow><mo>(</mo><mi>L</mi><mo>)</mo><mi>X</mi><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">N</mi></mrow><mo>(</mo><mi>R</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{IN}(X) = \mathrm{IN}(L)X\mathrm{IN}(R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">I</span><span class="mord mathrm">N</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathrm">I</span><span class="mord mathrm">N</span></span><span class="mopen">(</span><span class="mord mathit">L</span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mord"><span class="mord mathrm">I</span><span class="mord mathrm">N</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span>，<br>
+且后序遍历 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">P</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">T</mi></mrow><mo>(</mo><mi>X</mi><mo>)</mo><mo>=</mo><mrow><mi mathvariant="normal">P</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">T</mi></mrow><mo>(</mo><mi>L</mi><mo>)</mo><mrow><mi mathvariant="normal">P</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">T</mi></mrow><mo>(</mo><mi>R</mi><mo>)</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">\mathrm{POST}(X) = \mathrm{POST}(L)\mathrm{POST}(R)X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">P</span><span class="mord mathrm">O</span><span class="mord mathrm">S</span><span class="mord mathrm">T</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mord rule" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathrm">P</span><span class="mord mathrm">O</span><span class="mord mathrm">S</span><span class="mord mathrm">T</span></span><span class="mopen">(</span><span class="mord mathit">L</span><span class="mclose">)</span><span class="mord"><span class="mord mathrm">P</span><span class="mord mathrm">O</span><span class="mord mathrm">S</span><span class="mord mathrm">T</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mclose">)</span><span class="mord mathit" style="margin-right:0.07847em;">X</span></span></span></span>.<br>
+考虑到所有待处理的字符串都应为这一形式，自然而然地使用<strong>递归</strong>.</p>
+<p>观察后序遍历 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">P</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">T</mi></mrow><mo>(</mo><mi>X</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{POST}(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">P</span><span class="mord mathrm">O</span><span class="mord mathrm">S</span><span class="mord mathrm">T</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>，我们发现最后一个字符为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07847em;">X</span></span></span></span>，因此对于待处理的字符串，可以在中序遍历中查找后序遍历的最后一个字符，将中序遍历 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">N</mi></mrow><mo>(</mo><mi>X</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{IN}(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">I</span><span class="mord mathrm">N</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span> 自然而然地分为两部分，且显然有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">N</mi></mrow><mo>(</mo><mi>L</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{IN}(L)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">I</span><span class="mord mathrm">N</span></span><span class="mopen">(</span><span class="mord mathit">L</span><span class="mclose">)</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">P</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">T</mi></mrow><mo>(</mo><mi>L</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{POST}(L)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">P</span><span class="mord mathrm">O</span><span class="mord mathrm">S</span><span class="mord mathrm">T</span></span><span class="mopen">(</span><span class="mord mathit">L</span><span class="mclose">)</span></span></span></span> 长度相等，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">N</mi></mrow><mo>(</mo><mi>R</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{IN}(R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">I</span><span class="mord mathrm">N</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="normal">P</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">T</mi></mrow><mo>(</mo><mi>R</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathrm{POST}(R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord"><span class="mord mathrm">P</span><span class="mord mathrm">O</span><span class="mord mathrm">S</span><span class="mord mathrm">T</span></span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span> 长度相等，可分离出左孩子和右孩子各自的中序遍历和后序遍历，递归调用即可.</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<p>使用方法 <code>pre(instr, poststr, 0, n - 1, 0, n - 1)</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pre</span><span class="params">(<span class="keyword">char</span>* in, <span class="keyword">char</span>* post, <span class="keyword">int</span> lp, <span class="keyword">int</span> rp, <span class="keyword">int</span> li, <span class="keyword">int</span> ri)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// Root</span></span><br><span class="line">	<span class="keyword">if</span>(lp &gt; rp || li &gt; ri) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">char</span> root = post[rp];</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; root;</span><br><span class="line">	<span class="keyword">if</span>(lp == rp || li == ri) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = li; i &lt;= ri; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(in[i] == root)</span><br><span class="line">		&#123;</span><br><span class="line">			m = i;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(m != <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// Left</span></span><br><span class="line">		<span class="keyword">if</span>(m &gt; li) pre(in, post, lp, lp + (m - li - <span class="number">1</span>), li, m - <span class="number">1</span>);</span><br><span class="line">		<span class="comment">// Right</span></span><br><span class="line">		<span class="keyword">if</span>(m &lt; ri) pre(in, post, rp - (ri - m), rp - <span class="number">1</span>, m + <span class="number">1</span>, ri);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://oi.yscale.cf/2018/09/20/algorithm-problem-in-post-to-pre/" data-id="cjme7sglw0005dcsdk5xf6d80" data-summary="给出一棵二叉树的中序与后序遍历，求出它的先序遍历，用不同的大写字母表示二叉树的结点." data-title="Algorithm - Problem - 二叉树之中序后序求先序" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/22/algorithm-dp-dag/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新赋</strong>
+      <div class="article-nav-title">
+        
+          Algorithm - DP - DAG 模型
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/16/algorithm-problem-max-subsequence-sum/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">陈词</strong>
+      <div class="article-nav-title">Algorithm - Problem - 最大子段和</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Basic/">Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Dynamic-Programming/">Dynamic Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Problem/">Problem</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 10px;">Algorithm</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/22/algorithm-dp-knapsack/">Algorithm - DP - 背包</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/22/algorithm-dp-dag/">Algorithm - DP - DAG 模型</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/20/algorithm-problem-in-post-to-pre/">Algorithm - Problem - 二叉树之中序后序求先序</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/16/algorithm-problem-max-subsequence-sum/">Algorithm - Problem - 最大子段和</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/14/algorithm-merge-sort/">Algorithm - Basic - Merge Sort</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Siger Young<br>
+      动力源于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+</nav>
+    
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script-->
+<script src="//cdn.bootcss.com/jquery/1.7.2/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

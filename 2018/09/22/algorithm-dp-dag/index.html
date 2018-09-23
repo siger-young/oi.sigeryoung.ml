@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Algorithm - DP - DAG 模型 | Siger Young</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link href="//cdn.bootcss.com/KaTeX/0.9.0/katex.min.css" rel="stylesheet" type="text/css">
+  <meta name="description" content="DAG 模型常常被应用于动态规划问题中，比较常见.">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Algorithm - DP - DAG 模型">
+<meta property="og:url" content="http://oi.yscale.cf/2018/09/22/algorithm-dp-dag/index.html">
+<meta property="og:site_name" content="Siger Young">
+<meta property="og:description" content="DAG 模型常常被应用于动态规划问题中，比较常见.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oi.yscale.cf/2018/09/22/algorithm-dp-dag/DAG.png">
+<meta property="og:image" content="http://oi.yscale.cf/2018/09/22/algorithm-dp-dag/Babylon.png">
+<meta property="og:updated_time" content="2018-09-23T01:56:58.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Algorithm - DP - DAG 模型">
+<meta name="twitter:description" content="DAG 模型常常被应用于动态规划问题中，比较常见.">
+<meta name="twitter:image" content="http://oi.yscale.cf/2018/09/22/algorithm-dp-dag/DAG.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Siger Young" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Siger Young</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://oi.yscale.cf"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-algorithm-dp-dag" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/22/algorithm-dp-dag/" class="article-date">
+  <time datetime="2018-09-22T03:25:12.000Z" itemprop="datePublished">2018-09-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>►<a class="article-category-link" href="/categories/Algorithm/Dynamic-Programming/">Dynamic Programming</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Algorithm - DP - DAG 模型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>DAG 模型常常被应用于动态规划问题中，比较常见.</p>
+<a id="more"></a>
+<h2 id="dag-directed-acyclic-graph"><a class="markdownIt-Anchor" href="#dag-directed-acyclic-graph"></a> DAG (Directed Acyclic Graph)</h2>
+<p>DAG 就是有向无环图，其能够描述二元关系，可用于动态规划.</p>
+<h2 id="剖析"><a class="markdownIt-Anchor" href="#剖析"></a> 剖析</h2>
+<p>DAG 上的动态规划，许多仍然是记忆化搜索，但是搜索的对象是一个图.<br>
+如图所示，如果有这样一个 DAG，可发现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span></span> 被搜索了两次，因此可以直接记忆化.<br>
+对于大多数 DAG 上的动态规划，结点间有边权，因此往往求的是最短路、最长路.<br>
+<img src="/2018/09/22/algorithm-dp-dag/DAG.png" alt="DAG上的动态规划"></p>
+<hr>
+<h2 id="例题"><a class="markdownIt-Anchor" href="#例题"></a> 例题</h2>
+<h4 id="完全背包"><a class="markdownIt-Anchor" href="#完全背包"></a> 完全背包</h4>
+<p>已有背包的专题文章，可查看<a href="http://oi.yscale.cf/2018/09/22/algorithm-dp-backpack/">背包</a>.</p>
+<h4 id="巴比伦塔-uva-437-uva-vjudge"><a class="markdownIt-Anchor" href="#巴比伦塔-uva-437-uva-vjudge"></a> 巴比伦塔 (UVa 437) <a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=6&amp;problem=378" target="_blank" rel="noopener">UVa</a> <a href="https://cn.vjudge.net/problem/UVA-437" target="_blank" rel="noopener">vjudge</a></h4>
+<h5 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 问题描述</h5>
+<p>Perhaps you have heard of the legend of the Tower of Babylon. Nowadays many details of this tale have been forgotten. So now, in line with the educational nature of this contest, we will tell you the<br>
+whole story:</p>
+<p>The babylonians had n types of blocks, and an unlimited supply of blocks of each type. Each type-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">i</span></span></span></span> block was a rectangular solid with linear dimensions <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>z</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">(x_i,y_i,z_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">)</span></span></span></span> . A block could be reoriented so that any two of its three dimensions determined the dimensions of the base and the other dimension was the height.<br>
+They wanted to construct the tallest tower possible by stacking blocks. The problem was that, in building a tower, one block could only be placed on top of another block as long as the two base dimensions of the upper block were both strictly smaller than the corresponding base dimensions of the lower block. This meant, for example, that blocks oriented to have equal-sized bases couldn’t be stacked.</p>
+<p>Your job is to write a program that determines the height of the tallest tower the babylonians can build with a given set of blocks.</p>
+<h6 id="输入"><a class="markdownIt-Anchor" href="#输入"></a> 输入</h6>
+<p>The input file will contain one or more test cases. The first line of each test case contains an integer <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">n</span></span></span></span> ,<br>
+representing the number of different blocks in the following data set. The maximum value for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">n</span></span></span></span> is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mn>0</mn></mrow><annotation encoding="application/x-tex">30</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord">3</span><span class="mord">0</span></span></span></span> .<br>
+Each of the next n lines contains three integers representing the values <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>z</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i,y_i,z_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span></span></span> .<br>
+Input is terminated by a value of zero (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord">0</span></span></span></span>) for <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">n</span></span></span></span> .</p>
+<h6 id="输出"><a class="markdownIt-Anchor" href="#输出"></a> 输出</h6>
+<p>For each test case, print one line containing the case number (they are numbered sequentially starting from <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base"><span class="mord">1</span></span></span></span>) and the height of the tallest possible tower in the format<br>
+‘Case case: maximum height = height’</p>
+<h6 id="样例输入"><a class="markdownIt-Anchor" href="#样例输入"></a> 样例输入</h6>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">10 20 30</span><br><span class="line">2</span><br><span class="line">6 8 10</span><br><span class="line">5 5 5</span><br><span class="line">7</span><br><span class="line">1 1 1</span><br><span class="line">2 2 2</span><br><span class="line">3 3 3</span><br><span class="line">4 4 4</span><br><span class="line">5 5 5</span><br><span class="line">6 6 6</span><br><span class="line">7 7 7</span><br><span class="line">5</span><br><span class="line">31 41 59</span><br><span class="line">26 53 58</span><br><span class="line">97 93 23</span><br><span class="line">84 62 64</span><br><span class="line">33 83 27</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<h6 id="样例输出"><a class="markdownIt-Anchor" href="#样例输出"></a> 样例输出</h6>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Case 1: maximum height = 40</span><br><span class="line">Case 2: maximum height = 21</span><br><span class="line">Case 3: maximum height = 28</span><br><span class="line">Case 4: maximum height = 342</span><br></pre></td></tr></table></figure>
+<h5 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h5>
+<p>如果一个砖块能够放在另一个砖块上，那么这两个砖块有一条有向边，边权为上面砖块的高度.<br>
+此题主要要解决的是，砖块的底面不确定，因此我们需要将一个砖块拆解为三个不同底面的砖块，问题即可解决.<br>
+为了方便，建图时可引入虚结点，代表大地，方便搜索，以样例输入的最后一组数据的某两个砖块为例，如图所示.<br>
+<img src="/2018/09/22/algorithm-dp-dag/Babylon.png" alt="Babylon"></p>
+<h5 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h5>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN (30+5)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXV (500+5)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a,b) (((a)&gt;(b))?(a):(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG </span></span><br><span class="line"><span class="keyword">int</span> d[MAXN][<span class="number">3</span>];</span><br><span class="line"><span class="keyword">int</span> x[MAXN], y[MAXN], z[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">babylon_sub</span><span class="params">(<span class="keyword">int</span> c, <span class="keyword">int</span> rot, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(d[c][rot] != <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> d[c][rot];</span><br><span class="line">	&#125;</span><br><span class="line">	d[c][rot] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> base1, base2;</span><br><span class="line">	<span class="keyword">if</span>(rot == <span class="number">0</span>) &#123; base1 = x[c]; base2 = y[c] &#125;</span><br><span class="line">	<span class="keyword">if</span>(rot == <span class="number">1</span>) &#123; base1 = y[c]; base2 = z[c] &#125;</span><br><span class="line">	<span class="keyword">if</span>(rot == <span class="number">2</span>) &#123; base1 = x[c]; base2 = z[c] &#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>((x[i] &lt; base1 &amp;&amp; y[i] &lt; base2) || (y[i] &lt; base1 &amp;&amp; x[i] &lt; base2))</span><br><span class="line">			d[c][rot] = MAX(d[c][rot], babylon_sub(i, <span class="number">0</span>, n) + z[i]);</span><br><span class="line">		<span class="keyword">if</span>((y[i] &lt; base1 &amp;&amp; z[i] &lt; base2) || (z[i] &lt; base1 &amp;&amp; y[i] &lt; base2))</span><br><span class="line">			d[c][rot] = MAX(d[c][rot], babylon_sub(i, <span class="number">1</span>, n) + x[i]);</span><br><span class="line">		<span class="keyword">if</span>((x[i] &lt; base1 &amp;&amp; z[i] &lt; base2) || (z[i] &lt; base1 &amp;&amp; x[i] &lt; base2))</span><br><span class="line">			d[c][rot] = MAX(d[c][rot], babylon_sub(i, <span class="number">2</span>, n) + y[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> d[c][rot];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">babylon</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//memset(d, -1, sizeof(d));</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		d[i][<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">		d[i][<span class="number">1</span>] = <span class="number">-1</span>;</span><br><span class="line">		d[i][<span class="number">2</span>] = <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		r = MAX(r, babylon_sub(i, <span class="number">0</span>, n) + z[i]);</span><br><span class="line">		r = MAX(r, babylon_sub(i, <span class="number">1</span>, n) + x[i]);</span><br><span class="line">		r = MAX(r, babylon_sub(i, <span class="number">2</span>, n) + y[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> t = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> n;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">		<span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">		t++;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; x[i] &gt;&gt; y[i] &gt;&gt; z[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Case "</span> &lt;&lt; t &lt;&lt; <span class="string">":"</span> &lt;&lt; <span class="string">" maximum height = "</span> &lt;&lt; babylon(n);</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://oi.yscale.cf/2018/09/22/algorithm-dp-dag/" data-id="cjme7sglj0000dcsdfus23814" data-summary="DAG 模型常常被应用于动态规划问题中，比较常见." data-title="Algorithm - DP - DAG 模型" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/22/algorithm-dp-knapsack/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新赋</strong>
+      <div class="article-nav-title">
+        
+          Algorithm - DP - 背包
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/20/algorithm-problem-in-post-to-pre/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">陈词</strong>
+      <div class="article-nav-title">Algorithm - Problem - 二叉树之中序后序求先序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Basic/">Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Dynamic-Programming/">Dynamic Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/Problem/">Problem</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 10px;">Algorithm</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/22/algorithm-dp-knapsack/">Algorithm - DP - 背包</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/22/algorithm-dp-dag/">Algorithm - DP - DAG 模型</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/20/algorithm-problem-in-post-to-pre/">Algorithm - Problem - 二叉树之中序后序求先序</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/16/algorithm-problem-max-subsequence-sum/">Algorithm - Problem - 最大子段和</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/14/algorithm-merge-sort/">Algorithm - Basic - Merge Sort</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Siger Young<br>
+      动力源于 <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+</nav>
+    
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script-->
+<script src="//cdn.bootcss.com/jquery/1.7.2/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
