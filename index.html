@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oi.yscale.cf/2018/10/20/algorithm-problem-coordinate-transformation/">
+    <link itemprop="mainEntityOfPage" href="http://oi.yscale.cf/2018/10/26/algorithm-problem-shanghai-training-rmq-profit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siger Young">
@@ -318,8 +318,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/20/algorithm-problem-coordinate-transformation/" itemprop="url">
-                  Algorithm - Problem - 坐标跳跃
+                <a class="post-title-link" href="/2018/10/26/algorithm-problem-shanghai-training-rmq-profit/" itemprop="url">
+                  Algorithm - Problem - [上海赛前集训] 买卖收益
                 </a>
               
             
@@ -345,15 +345,28 @@
                 
               
 
-              <time title="创建时间：2018-10-20 23:00:12 / 修改时间：12:15:30" itemprop="dateCreated datePublished" datetime="2018-10-20T23:00:12+08:00">2018-10-20</time>
+              <time title="创建时间：2018-10-26 23:00:12" itemprop="dateCreated datePublished" datetime="2018-10-26T23:00:12+08:00">2018-10-26</time>
             
-			<!--a onclick="shareToQq('http://oi.yscale.cf/2018/10/20/algorithm-problem-coordinate-transformation/', ' 坐标跳跃
+			<!--a onclick="shareToQq('http://oi.yscale.cf/2018/10/26/algorithm-problem-shanghai-training-rmq-profit/', ' [上海赛前集训] 买卖收益
  问题描述
-在一个平面坐标系上，小明的初始位置坐标为 (p,q)(p,q)(p,q)，我们可以通过一次操作将他的位置变为 (p+q,q)(p+q,q)(p+q,q) 或 (p,p+q)(p, p+q)(p,p+q)。
-给定一正整数 nnn，小明的初始位置为 (1,1)(1, 1)(1,1)，问最少需要多少次操作，可变为一个新的坐标 (x,y)(x, y)(x,y)，且其中的 xxx 或 yyy 至少有一个数字为 nnn 。', 'Algorithm - Problem - 坐标跳跃')" class="article-share-link"><img src="//qzonestyle.gtimg.cn/ac/qzone_v5/app/app_share/btn_share.png"></a-->
+一个国家有 NNN 个城市，由 N−1N-1N−1 条双向道路连接，任意两个城市间都有唯一的路径。
+某一种商品，在第 iii 个城市的价格为 AiA_iAi​ 。小明如果从一个城市到另一个城市，一共只会在路径上交易两次，一次是买入，一次是卖出。
+现在有 QQQ 次询问，每次告诉你两个城市，请问从城市 xxx 到城市 yyy，或者从城市 yyy 到城市 xxx 能获得的最大收益是多少？', 'Algorithm - Problem - [上海赛前集训] 买卖收益')" class="article-share-link"><img src="//qzonestyle.gtimg.cn/ac/qzone_v5/app/app_share/btn_share.png"></a-->
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-27 23:53:39" itemprop="dateModified" datetime="2018-10-27T23:53:39+08:00">2018-10-27</time>
               
             
           </span>
@@ -412,13 +425,202 @@
 
       
         
-          <h4 id="坐标跳跃"><a class="markdownIt-Anchor" href="#坐标跳跃"></a> 坐标跳跃</h4>
+          <h4 id="上海赛前集训-买卖收益"><a class="markdownIt-Anchor" href="#上海赛前集训-买卖收益"></a> [上海赛前集训] 买卖收益</h4>
+<h5 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 问题描述</h5>
+<p>一个国家有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span> 个城市，由 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10903em;">N</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span></span> 条双向道路连接，任意两个城市间都有唯一的路径。</p>
+<p>某一种商品，在第 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.65952em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">i</span></span></span></span> 个城市的价格为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>A</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">A_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base"><span class="mord"><span class="mord mathit">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span></span></span> 。小明如果从一个城市到另一个城市，一共只会在路径上交易两次，一次是买入，一次是卖出。</p>
+<p>现在有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit">Q</span></span></span></span> 次询问，每次告诉你两个城市，请问从城市 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">x</span></span></span></span> 到城市 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span>，或者从城市 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span> 到城市 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">x</span></span></span></span> 能获得的最大收益是多少？</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/26/algorithm-problem-shanghai-training-rmq-profit/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://oi.yscale.cf/2018/10/20/algorithm-problem-shanghai-training-coordinate-transformation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siger Young">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/13887988?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siger Young">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/20/algorithm-problem-shanghai-training-coordinate-transformation/" itemprop="url">
+                  Algorithm - Problem - [上海赛前集训] 坐标跳跃
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-20 23:00:12" itemprop="dateCreated datePublished" datetime="2018-10-20T23:00:12+08:00">2018-10-20</time>
+            
+			<!--a onclick="shareToQq('http://oi.yscale.cf/2018/10/20/algorithm-problem-shanghai-training-coordinate-transformation/', ' [上海赛前集训] 坐标跳跃
+ 问题描述
+在一个平面坐标系上，小明的初始位置坐标为 (p,q)(p,q)(p,q)，我们可以通过一次操作将他的位置变为 (p+q,q)(p+q,q)(p+q,q) 或 (p,p+q)(p, p+q)(p,p+q)。
+给定一正整数 nnn，小明的初始位置为 (1,1)(1, 1)(1,1)，问最少需要多少次操作，可变为一个新的坐标 (x,y)(x, y)(x,y)，且其中的 xxx 或 yyy 至少有一个数字为 nnn 。', 'Algorithm - Problem - [上海赛前集训] 坐标跳跃')" class="article-share-link"><img src="//qzonestyle.gtimg.cn/ac/qzone_v5/app/app_share/btn_share.png"></a-->
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-27 23:54:12" itemprop="dateModified" datetime="2018-10-27T23:54:12+08:00">2018-10-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/Problem/" itemprop="url" rel="index"><span itemprop="name">Problem</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="上海赛前集训-坐标跳跃"><a class="markdownIt-Anchor" href="#上海赛前集训-坐标跳跃"></a> [上海赛前集训] 坐标跳跃</h4>
 <h5 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 问题描述</h5>
 <p>在一个平面坐标系上，小明的初始位置坐标为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>p</mi><mo separator="true">,</mo><mi>q</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(p,q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathit">p</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span>，我们可以通过一次操作将他的位置变为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>p</mi><mo>+</mo><mi>q</mi><mo separator="true">,</mo><mi>q</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(p+q,q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathit">p</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>p</mi><mo separator="true">,</mo><mi>p</mi><mo>+</mo><mi>q</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(p, p+q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathit">p</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit">p</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mord rule" style="margin-right:0.2222222222222222em;"></span><span class="mord mathit" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span>。</p>
 <p>给定一正整数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">n</span></span></span></span>，小明的初始位置为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(1, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>，问最少需要多少次操作，可变为一个新的坐标 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathit">x</span><span class="mpunct">,</span><span class="mord rule" style="margin-right:0.16666666666666666em;"></span><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>，且其中的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">x</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span> 至少有一个数字为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base"><span class="mord mathit">n</span></span></span></span> 。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/20/algorithm-problem-coordinate-transformation/#more" rel="contents">
+            <a class="btn" href="/2018/10/20/algorithm-problem-shanghai-training-coordinate-transformation/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1932,202 +2134,6 @@ PS：一个数的最大公约数即本身。', 'Algorithm - Problem - 又是毕�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oi.yscale.cf/2018/09/22/algorithm-dp-dag/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siger Young">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/13887988?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siger Young">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/22/algorithm-dp-dag/" itemprop="url">
-                  Algorithm - DP - DAG 模型
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-22 11:25:12" itemprop="dateCreated datePublished" datetime="2018-09-22T11:25:12+08:00">2018-09-22</time>
-            
-			<!--a onclick="shareToQq('http://oi.yscale.cf/2018/09/22/algorithm-dp-dag/', 'DAG 模型常常被应用于动态规划问题中，比较常见.
- DAG (Directed Acyclic Graph)
-DAG 就是有向无环图，其能够描述二元关系，可用于动态规划.
- 剖析
-DAG 上的动态规划，许多仍然是记忆化搜索，但是搜索的对象是一个图.
-如图所示，如果有这样一个 DAG，可发现 CCC 和 DDD 被搜索了两次，因此可以直接记忆化.
-对于大多数 DAG 上的动态规划，结点间有边权，因此往往求的是最短路、最长路.
-', 'Algorithm - DP - DAG 模型')" class="article-share-link"><img src="//qzonestyle.gtimg.cn/ac/qzone_v5/app/app_share/btn_share.png"></a-->
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-10-03 17:37:04" itemprop="dateModified" datetime="2018-10-03T17:37:04+08:00">2018-10-03</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Algorithm/Dynamic-Programming/" itemprop="url" rel="index"><span itemprop="name">Dynamic Programming</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>DAG 模型常常被应用于动态规划问题中，比较常见.</p>
-<h2 id="dag-directed-acyclic-graph"><a class="markdownIt-Anchor" href="#dag-directed-acyclic-graph"></a> DAG (Directed Acyclic Graph)</h2>
-<p>DAG 就是有向无环图，其能够描述二元关系，可用于动态规划.</p>
-<h2 id="剖析"><a class="markdownIt-Anchor" href="#剖析"></a> 剖析</h2>
-<p>DAG 上的动态规划，许多仍然是记忆化搜索，但是搜索的对象是一个图.<br>
-如图所示，如果有这样一个 DAG，可发现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.02778em;">D</span></span></span></span> 被搜索了两次，因此可以直接记忆化.<br>
-对于大多数 DAG 上的动态规划，结点间有边权，因此往往求的是最短路、最长路.<br>
-<img src="/2018/09/22/algorithm-dp-dag/DAG.png" alt="DAG上的动态规划"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/22/algorithm-dp-dag/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2179,7 +2185,7 @@ DAG 上的动态规划，许多仍然是记忆化搜索，但是搜索的对象�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
